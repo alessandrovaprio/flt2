@@ -19,13 +19,13 @@ public class NodeConvert extends NodeExpr {
         this.node = node;
     }
     
-    @Override
-    public String toString() {
-        return "<Convert," + node.toString() + ">";
-    }
 
 	@Override
 	public void accept(IVisitor visitor) throws RegisterException {
         visitor.visit(this);	
+	}
+	@Override
+	public String toString() {
+		return "<Convert," + node.toString() + ">";
 	}
 }

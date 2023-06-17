@@ -19,10 +19,6 @@ public class NodeDecl extends NodeDecSt {
 		return id;
 	}
 	
-	@Override
-    public String toString(){
-        return "<NodeDecl, " + "id: " + this.id.toString() + ", type: " + this.type + ">";
-    }
 	
     @Override
     public boolean equals(Object obj){
@@ -41,5 +37,9 @@ public class NodeDecl extends NodeDecSt {
 	
     public void setReg() throws RegisterException {
     	id.getDefinition().setReg();
+    }
+    @Override
+    public String toString(){
+    	return "<NodeDecl, " + "id: " + this.id.toString() + ", type: " + this.type + ">";
     }
 }

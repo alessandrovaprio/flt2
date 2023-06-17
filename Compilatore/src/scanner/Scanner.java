@@ -33,7 +33,7 @@ public class Scanner {
 	final double MAX_DIGIT = 4;
     final double MIN_DIGIT = 0;
 	
-    private int riga;
+    private int row;
 	private PushbackReader buffer;
 	private String log;
 	
@@ -50,16 +50,16 @@ public class Scanner {
 
 	public Scanner(String fileName) throws CompilerException {
 		//init hmap 
-		hmapChar.put('+',TokenType.PLUS);
-		hmapChar.put('-',TokenType.MINUS);
-		hmapChar.put('*',TokenType.TIMES);
-		hmapChar.put('/',TokenType.DIV);
-		hmapChar.put('=',TokenType.ASSIGN);
-		hmapChar.put(';',TokenType.SEMI);
-		
 		hmapKey.put("print",TokenType.PRINT);
 		hmapKey.put("float",TokenType.TYFLOAT);
 		hmapKey.put("int",TokenType.TYINT);
+		hmapChar.put(';',TokenType.SEMI);
+		hmapChar.put('*',TokenType.TIMES);
+		hmapChar.put('/',TokenType.DIV);
+		hmapChar.put('+',TokenType.PLUS);
+		hmapChar.put('-',TokenType.MINUS);
+		hmapChar.put('=',TokenType.ASSIGN);
+		
 		//end int hmap
 		
 		try {
@@ -67,13 +67,11 @@ public class Scanner {
 		} catch (FileNotFoundException e) {
 			throw new CompilerException(e.getMessage());
 		}
-		riga = 1;
+		row = 1;
 
 	}
 	
-	public Token peekToken() throws CompilerException  {
-		return peeked =nextToken();
-	}
+	
 
 	public Token nextToken() throws CompilerException {
 		if(peeked!=null) {
@@ -86,9 +84,9 @@ public class Scanner {
 
 		if(skipChars.contains(nextChar)) {
 			if(nextChar == '\n')
-				riga+=1;
+				row+=1;
 			if(nextChar == EOF) 
-				return new Token(TokenType.EOF,riga);
+				return new Token(TokenType.EOF,row);
 			readChar();
 			return nextToken();
 		}
@@ -103,12 +101,16 @@ public class Scanner {
 
 		if(hmapChar.containsKey(nextChar)) {
 			readChar();
-			return new Token(hmapChar.get(nextChar), riga);
+			return new Token(hmapChar.get(nextChar), row);
 		}
 		
-		throw new CompilerException("Carattere illegale : " + nextChar + " riga " + riga);
+		throw new CompilerException("Carattere illegale : " + nextChar + " riga " + row);
 	}
 
+	public Token peekToken() throws CompilerException  {
+		return peeked =nextToken();
+	}
+	
 	private Token scanId() throws CompilerException {
 			String tmp = Character.toString(readChar());
 			while(letters.contains(peekChar())) {
@@ -116,10 +118,10 @@ public class Scanner {
 			}
 			
 			if(hmapKey.containsKey(tmp)) {
-				return new Token(hmapKey.get(tmp), riga);
+				return new Token(hmapKey.get(tmp), row);
 			}
 	
-			return new Token(TokenType.ID, riga, tmp);
+			return new Token(TokenType.ID, row, tmp);
 	}
 
 	private Token scanNumber() throws CompilerException {
@@ -128,7 +130,7 @@ public class Scanner {
 			s+=readChar();
 		}
 		if(peekChar()!='.') 
-			return new Token(TokenType.INT, riga, s);
+			return new Token(TokenType.INT, row, s);
 		
 		s+=readChar();
 		int nC = 0;
@@ -137,7 +139,7 @@ public class Scanner {
 			s+=readChar();
 		}
 		if((nC<=MAX_DIGIT) && (nC >= MIN_DIGIT)) 
-			return new Token(TokenType.FLOAT, riga, s);
+			return new Token(TokenType.FLOAT, row, s);
 		else
 			throw new CompilerException("Float overflow");
 	}

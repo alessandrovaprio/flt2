@@ -10,6 +10,7 @@ public interface sym {
   /* terminals */
   public static final int MINUS = 7;
   public static final int INT = 11;
+  public static final int CLEAN = 14;
   public static final int SEMI = 10;
   public static final int EOF = 0;
   public static final int PLUS = 6;
@@ -36,7 +37,8 @@ public interface sym {
   "SEMI",
   "INT",
   "FLOAT",
-  "ID"
+  "ID",
+  "CLEAN"
   };
 }
 

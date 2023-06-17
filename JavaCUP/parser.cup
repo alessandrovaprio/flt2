@@ -42,7 +42,7 @@ scan with {: return lexer.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
 terminal            TYFLOAT, TYINT, PRINT, ASSIGN, PLUS, MINUS, TIMES, DIV, SEMI;
-terminal String		INT, FLOAT, ID; 
+terminal String		INT, FLOAT, ID, CLEAN; 
 
 /* Non terminals */
 non terminal            	Prog, DSs;
@@ -55,15 +55,15 @@ precedence left TIMES, DIV;
 
 /* The grammar rules */
 Prog	::= DSs					{:
-									if (isCorrect){
-										System.out.println("Program: Correct");
+									if (!isCorrect){
+										System.out.println("Program: Not correct");
+									}else{
+										System.out.println("Program: Is Correct");
 										System.out.println(SymbolTable.toStr());
 										System.out.println("------------------");
-										System.out.println("CODE");
+										System.out.println("CODE:");
 										System.out.println("------------------");
 										System.out.println(codice);
-									}else{
-										System.out.println("Program: Not correct");
 									}
 								:}
 		  ;
@@ -108,8 +108,14 @@ Stm		::= ID:idName ASSIGN Expr:expr SEMI	{:
 									Attributes id = SymbolTable.lookup(idName);			
         							codice.append("l")
   	  	      						.append(id.getReg()).append(" ")
-  	  	      						.append("p ")	
-  	  	      						.append("P ");
+  	  	      						.append("p ")	// print without remove from stack
+  	  	      						.append("P "); // pop the row from stack
+									RESULT = TypeDescriptor.VOID;									
+								:}
+		  
+		  | CLEAN SEMI		{: 
+												
+        							codice.append("c");
 									RESULT = TypeDescriptor.VOID;									
 								:}
 		  ;
@@ -118,12 +124,11 @@ Expr	::= Expr:expl Op:op Expr:expr{:
 										if (expl == TypeDescriptor.ERROR || expr == TypeDescriptor.ERROR) {
 											RESULT = TypeDescriptor.ERROR;
 										} else {
-											if ( (expl == TypeDescriptor.INT && expr== TypeDescriptor.FLOAT) || expl == TypeDescriptor.FLOAT && expr == TypeDescriptor.INT){
-												codice.append("5 k ")
+											if ( (expl == TypeDescriptor.INT && expr== TypeDescriptor.FLOAT) 
+														|| expl == TypeDescriptor.FLOAT && expr == TypeDescriptor.INT
+														|| expl == TypeDescriptor.FLOAT && expr == TypeDescriptor.FLOAT){
+												codice.append("5 k ") // usato per avere precisione a 5 cifre 
 													  .append(op + " ");
-												RESULT = TypeDescriptor.FLOAT;
-											}else if (expl == TypeDescriptor.FLOAT && expr == TypeDescriptor.FLOAT) {
-												codice.append(op + " ");
 												RESULT = TypeDescriptor.FLOAT;
 											} else {
 												codice.append(op + " ");
@@ -135,11 +140,14 @@ Expr	::= Expr:expl Op:op Expr:expr{:
 										RESULT = val;
 									:}
 		  ;
+		  
 
 Op		::= PLUS			{: RESULT = '+'; :}
 		  | MINUS			{: RESULT = '-'; :}
 		  | TIMES			{: RESULT = '*'; :}
 		  | DIV				{: RESULT = '/'; :}
+		  
+		  
 		  ;
             
 Val		::= INT:num				{: 

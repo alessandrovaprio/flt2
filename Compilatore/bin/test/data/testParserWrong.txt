@@ -1,1 +1,1 @@
-print pippo 5
+print stringa 5

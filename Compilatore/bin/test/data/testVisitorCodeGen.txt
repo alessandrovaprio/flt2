@@ -1,6 +1,6 @@
 int a;
 float b;
-b = 1.0 / 6;
+b = 10.0 / 6;
 print b;
-a = 1 / 6;
+a = 10 / 6;
 print a;

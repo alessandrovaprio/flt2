@@ -11,9 +11,13 @@ public class TestToken {
 
 	@Test
 	public void test() {
-		Token t = new Token(TokenType.ASSIGN,9);
+		Token t = new Token(TokenType.ASSIGN,3);
 		
-		assertEquals(9, t.getRiga());
+		assertEquals(3, t.getRiga());
+		assertEquals(t.getVal(), null);
+		t = new Token(TokenType.INT, 5,"1");
+		assertEquals(t.getVal(), "1");
+		
 	}
 
 }

@@ -24,15 +24,15 @@ public class NodeCost extends NodeExpr {
         this.type = type;
     }
     
-    @Override
-    public String toString(){
-        return "<value: " + value + ", type: " + type + ">";
-    }
 
 	@Override
 	public void accept(IVisitor visitor) {
         visitor.visit(this);
 		
+	}
+	@Override
+	public String toString(){
+		return "<value: " + value + ", type: " + type + ">";
 	}
     
 }

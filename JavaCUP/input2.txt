@@ -1,0 +1,7 @@
+int i;
+float f;
+i = 2 - 1;
+print i;
+f= 10.2 - 100;
+print f;
+clean;

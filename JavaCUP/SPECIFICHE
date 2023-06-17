@@ -17,6 +17,7 @@ TYINT int Parola chiave
 TYFLOAT float Parola chiave
 ASSIGN = Operatore
 PRINT print Operatore
+CLEAR print Operatore
 PLUS + Operatore
 MINUS - Operatore
 TIMES * Operatore

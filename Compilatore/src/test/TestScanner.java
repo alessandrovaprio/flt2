@@ -20,11 +20,13 @@ public class TestScanner {
 		scanner = new Scanner(path);
 
 		assertTrue(scanner.nextToken().equals(new Token(TokenType.TYINT, 1, null)));
-		assertTrue(scanner.nextToken().equals(new Token(TokenType.ID, 1, "pippo")));
+		assertTrue(scanner.nextToken().equals(new Token(TokenType.ID, 1, "miavar")));
 		assertTrue(scanner.nextToken().equals(new Token(TokenType.SEMI, 1, null)));
-		assertTrue(scanner.nextToken().equals(new Token(TokenType.INT, 2, "4")));
-		assertTrue(scanner.nextToken().equals(new Token(TokenType.FLOAT, 3, "4.5")));
+		assertTrue(scanner.nextToken().equals(new Token(TokenType.INT, 2, "3")));
+		assertTrue(scanner.nextToken().equals(new Token(TokenType.FLOAT, 3, "3.5")));
 		assertTrue(scanner.nextToken().equals(new Token(TokenType.FLOAT, 4, ".6")));
-		assertTrue(scanner.nextToken().equals(new Token(TokenType.FLOAT, 5, "7.")));
+		assertTrue(scanner.nextToken().equals(new Token(TokenType.FLOAT, 5, "8.")));
+		assertTrue(scanner.nextToken().equals(new Token(TokenType.FLOAT, 6, "8.65")));
+		assertTrue(scanner.nextToken().equals(new Token(TokenType.INT, 7, "2")));
 	}
 }

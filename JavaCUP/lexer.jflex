@@ -80,6 +80,7 @@ Id			 = [a-z]+
   "int"         { return symbolFactory.newSymbol("TYINT", TYINT); }
   "float"       { return symbolFactory.newSymbol("TYFLOAT", TYFLOAT); }
   "print"	    { return symbolFactory.newSymbol("PRINT", PRINT); }
+  "clean"	    { return symbolFactory.newSymbol("CLEAN", CLEAN); }
   {Id}          { return symbolFactory.newSymbol("ID", ID, yytext()); }
   {NumberInt}   { return symbolFactory.newSymbol("INT", INT, yytext()); }
   {NumberFloat} { return symbolFactory.newSymbol("FLOAT", FLOAT, yytext()); }

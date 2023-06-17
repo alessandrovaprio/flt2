@@ -144,7 +144,7 @@ public class TestVisitor {
         
 		nodeProgram.accept(codeVisitor);
         //System.out.println(SymbolTable.toStr());
-		String expected = "1.0 6 5 k / sb 0 k lb p P 1 6 / sa 0 k la p P ";
+		String expected = "10.0 6 5 k / sb 0 k lb p P 10 6 / sa 0 k la p P ";
 		//System.out.println(expected);
 		//System.out.println(codeVisitor.codice.toString());
 		assertEquals(expected, codeVisitor.codice.toString());

@@ -30,6 +30,10 @@ public class Token {
         return this.val;
 	}
 	
+	public void setVal(String val) {
+		this.val = val;
+	}
+	
 	public String toString() {
 		return "<" + tipo.toString() + "," + val + "," + riga + ">";
 	}

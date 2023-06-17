@@ -16,24 +16,24 @@ public class NodeProgram extends NodeAST {
 		return decSts;
 	}
 	
-    @Override
-    public String toString(){
-        StringBuilder str = new StringBuilder();
-        str.append("<NodeProgram, decSts: [");
-        boolean isFirst = true;
-        for (NodeDecSt node : decSts) {
-            if (!isFirst) {
-                str.append(", ");
-            }
-            isFirst = false;
-            str.append(node.toString());
-        }
-        str.append("]>");
-        return str.toString();
-    }
 
 	@Override
 	public void accept(IVisitor visitor) throws RegisterException {
         visitor.visit(this);
+	}
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("<NodeProgram, decSts: [");
+		boolean isFirst = true;
+		for (NodeDecSt node : decSts) {
+			if (!isFirst) {
+				sb.append(", ");
+			}
+			isFirst = false;
+			sb.append(node.toString());
+		}
+		sb.append("]>");
+		return sb.toString();
 	}
 }
